@@ -1,0 +1,82 @@
+<Window x:Class="AndromedaShop.AddEditOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Заказ"
+        Height="440" Width="460"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F0F2F5">
+    <Grid>
+        <Border Background="White" CornerRadius="6" Margin="16">
+            <Border.Effect>
+                <DropShadowEffect Color="#CCCCCC" BlurRadius="8" ShadowDepth="1" Opacity="0.4"/>
+            </Border.Effect>
+            <StackPanel Margin="20">
+                <TextBlock x:Name="lblTitle"
+                           Text="Новый заказ"
+                           FontSize="18" FontWeight="Bold"
+                           Foreground="#2C3E50"
+                           Margin="0,0,0,16"/>
+
+                <!-- Дата заказа -->
+                <TextBlock Text="Дата заказа *" FontSize="12" Foreground="#555" Margin="0,0,0,4"/>
+                <DatePicker x:Name="dpOrderDate" Height="34" Margin="0,0,0,10"/>
+
+                <!-- Дата доставки -->
+                <TextBlock Text="Дата доставки" FontSize="12" Foreground="#555" Margin="0,0,0,4"/>
+                <DatePicker x:Name="dpDeliveryDate" Height="34" Margin="0,0,0,10"/>
+
+                <!-- Пункт выдачи -->
+                <TextBlock Text="Пункт выдачи *" FontSize="12" Foreground="#555" Margin="0,0,0,4"/>
+                <ComboBox x:Name="cbPickupPoint" Height="34" Margin="0,0,0,10" DisplayMemberPath="Name"/>
+
+                <!-- Клиент -->
+                <TextBlock Text="Клиент *" FontSize="12" Foreground="#555" Margin="0,0,0,4"/>
+                <ComboBox x:Name="cbClient" Height="34" Margin="0,0,0,10" DisplayMemberPath="Name"/>
+
+                <!-- Статус -->
+                <TextBlock Text="Статус *" FontSize="12" Foreground="#555" Margin="0,0,0,4"/>
+                <ComboBox x:Name="cbStatus" Height="34" Margin="0,0,0,10" DisplayMemberPath="Name"/>
+
+                <!-- Код получения -->
+                <TextBlock Text="Код получения" FontSize="12" Foreground="#555" Margin="0,0,0,4"/>
+                <TextBox x:Name="txtCode" Height="34" Margin="0,0,0,16"/>
+
+                <!-- Кнопки -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Content="Сохранить"
+                            Style="{StaticResource SuccessButton}"
+                            Height="38"
+                            Click="BtnSave_Click"/>
+                    <Button Grid.Column="2"
+                            Content="Отмена"
+                            Height="38"
+                            Background="#BDC3C7"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="BtnCancel_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="4"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#95A5A6"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

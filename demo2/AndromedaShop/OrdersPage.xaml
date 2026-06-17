@@ -1,0 +1,89 @@
+<Page x:Class="AndromedaShop.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Заказы"
+      Background="#FFFFFF"
+      FontFamily="Comic Sans MS">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Заказы"
+                   FontSize="22" FontWeight="Bold"
+                   Foreground="#546F94"
+                   FontFamily="Comic Sans MS"
+                   Margin="0,0,0,16"/>
+
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Column="0"
+                      x:Name="cbStatus"
+                      Height="34"
+                      Margin="0,0,8,0"
+                      SelectionChanged="Filter_Changed"
+                      DisplayMemberPath="Name"/>
+
+            <DatePicker Grid.Column="1"
+                        x:Name="dpFrom"
+                        Height="34"
+                        Margin="0,0,4,0"
+                        SelectedDateChanged="Filter_Changed"/>
+
+            <DatePicker Grid.Column="2"
+                        x:Name="dpTo"
+                        Height="34"
+                        Margin="0,0,8,0"
+                        SelectedDateChanged="Filter_Changed"/>
+
+            <TextBlock Grid.Column="3"/>
+
+            <Button Grid.Column="4" x:Name="btnAdd"
+                    Content="+ Добавить"
+                    Style="{StaticResource SuccessButton}"
+                    Height="34" Margin="0,0,6,0"
+                    Click="BtnAdd_Click"
+                    Visibility="Collapsed"/>
+
+            <Button Grid.Column="5" x:Name="btnEdit"
+                    Content="Изменить"
+                    Style="{StaticResource PrimaryButton}"
+                    Height="34" Margin="0,0,6,0"
+                    Click="BtnEdit_Click"
+                    Visibility="Collapsed"/>
+
+            <Button Grid.Column="6" x:Name="btnDelete"
+                    Content="Удалить"
+                    Style="{StaticResource DangerButton}"
+                    Height="34"
+                    Click="BtnDelete_Click"
+                    Visibility="Collapsed"/>
+        </Grid>
+
+        <DataGrid Grid.Row="2"
+                  x:Name="dgOrders"
+                  SelectionChanged="DgOrders_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№"             Binding="{Binding Id}"                 Width="50"/>
+                <DataGridTextColumn Header="Дата заказа"   Binding="{Binding OrderDateStr}"       Width="120"/>
+                <DataGridTextColumn Header="Дата доставки" Binding="{Binding DeliveryDateStr}"    Width="130"/>
+                <DataGridTextColumn Header="Клиент"        Binding="{Binding ClientName}"         Width="*"/>
+                <DataGridTextColumn Header="ПВЗ"           Binding="{Binding PickupPointAddress}" Width="160"/>
+                <DataGridTextColumn Header="Статус"        Binding="{Binding StatusName}"         Width="120"/>
+                <DataGridTextColumn Header="Код получения" Binding="{Binding ReceiptCode}"        Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

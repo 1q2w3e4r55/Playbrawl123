@@ -1,0 +1,130 @@
+<Application x:Class="AndromedaShop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="LoginWindow.xaml">
+    <Application.Resources>
+
+        <!-- Цвета по заданию -->
+        <!-- Основной фон: #FFFFFF, Дополнительный: #ABCFCE, Акцент: #546F94 -->
+        <!-- Скидка > 25%: #23E1EF -->
+
+        <SolidColorBrush x:Key="PrimaryBg"    Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="SecondaryBg"  Color="#ABCFCE"/>
+        <SolidColorBrush x:Key="AccentBrush"  Color="#546F94"/>
+        <SolidColorBrush x:Key="DiscountBg"   Color="#23E1EF"/>
+
+        <!-- Шрифт по заданию: Comic Sans MS -->
+        <FontFamily x:Key="AppFont">Comic Sans MS</FontFamily>
+
+        <!-- Глобальный шрифт для всего приложения -->
+        <Style TargetType="Window">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Background"  Value="#FFFFFF"/>
+        </Style>
+        <Style TargetType="Page">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Background"  Value="#FFFFFF"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily"      Value="Comic Sans MS"/>
+            <Setter Property="Padding"         Value="6,4"/>
+            <Setter Property="BorderBrush"     Value="#ABCFCE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="FontFamily"      Value="Comic Sans MS"/>
+            <Setter Property="Padding"         Value="6,4"/>
+            <Setter Property="BorderBrush"     Value="#ABCFCE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily"      Value="Comic Sans MS"/>
+            <Setter Property="Padding"         Value="6,4"/>
+            <Setter Property="BorderBrush"     Value="#ABCFCE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="FontFamily"             Value="Comic Sans MS"/>
+            <Setter Property="AutoGenerateColumns"    Value="False"/>
+            <Setter Property="CanUserAddRows"         Value="False"/>
+            <Setter Property="CanUserDeleteRows"      Value="False"/>
+            <Setter Property="IsReadOnly"             Value="True"/>
+            <Setter Property="SelectionMode"          Value="Single"/>
+            <Setter Property="AlternatingRowBackground" Value="#ABCFCE"/>
+            <Setter Property="Background"             Value="#FFFFFF"/>
+            <Setter Property="GridLinesVisibility"    Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#ABCFCE"/>
+            <Setter Property="RowHeight"              Value="38"/>
+            <Setter Property="FontSize"               Value="13"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="FontFamily"   Value="Comic Sans MS"/>
+            <Setter Property="Background"   Value="#546F94"/>
+            <Setter Property="Foreground"   Value="White"/>
+            <Setter Property="FontWeight"   Value="Bold"/>
+            <Setter Property="Padding"      Value="8,6"/>
+            <Setter Property="FontSize"     Value="13"/>
+        </Style>
+
+        <!-- Кнопка акцент (#546F94) -->
+        <Style TargetType="Button" x:Key="PrimaryButton">
+            <Setter Property="FontFamily"      Value="Comic Sans MS"/>
+            <Setter Property="Background"      Value="#546F94"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="Padding"         Value="12,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3d5270"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2c3d54"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#ABCFCE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="DangerButton" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#C0392B"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#922B21"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="SuccessButton" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#27AE60"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1E8449"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Общий стиль кнопки (без ключа) -->
+        <Style TargetType="Button" BasedOn="{StaticResource PrimaryButton}"/>
+
+    </Application.Resources>
+</Application>

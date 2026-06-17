@@ -1,0 +1,135 @@
+<Page x:Class="AndromedaShop.ProductsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Товары"
+      Background="#FFFFFF"
+      FontFamily="Comic Sans MS">
+    <Page.Resources>
+        <!-- Стиль строки DataGrid: скидка > 25% → фон #23E1EF -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsHighDiscount}" Value="True">
+                    <Setter Property="Background" Value="#23E1EF"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0"
+                   Text="Товары"
+                   FontSize="22" FontWeight="Bold"
+                   Foreground="#546F94"
+                   FontFamily="Comic Sans MS"
+                   Margin="0,0,0,16"/>
+
+        <!-- Панель фильтров -->
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                     x:Name="txtSearch"
+                     Height="34"
+                     Margin="0,0,8,0"
+                     VerticalContentAlignment="Center"
+                     TextChanged="TxtSearch_TextChanged"/>
+
+            <ComboBox Grid.Column="1"
+                      x:Name="cbCategory"
+                      Height="34"
+                      Margin="0,0,8,0"
+                      SelectionChanged="CbCategory_SelectionChanged"
+                      DisplayMemberPath="Name"/>
+
+            <ComboBox Grid.Column="2"
+                      x:Name="cbSort"
+                      Height="34"
+                      Margin="0,0,8,0"
+                      SelectionChanged="CbSort_SelectionChanged">
+                <ComboBoxItem Content="Цена: по возрастанию" Tag="asc" IsSelected="True"/>
+                <ComboBoxItem Content="Цена: по убыванию"   Tag="desc"/>
+            </ComboBox>
+
+            <Button Grid.Column="3" x:Name="btnAdd"
+                    Content="+ Добавить"
+                    Style="{StaticResource SuccessButton}"
+                    Height="34" Margin="0,0,6,0"
+                    Click="BtnAdd_Click"
+                    Visibility="Collapsed"/>
+
+            <Button Grid.Column="4" x:Name="btnEdit"
+                    Content="Изменить"
+                    Style="{StaticResource PrimaryButton}"
+                    Height="34" Margin="0,0,6,0"
+                    Click="BtnEdit_Click"
+                    Visibility="Collapsed"/>
+
+            <Button Grid.Column="5" x:Name="btnDelete"
+                    Content="Удалить"
+                    Style="{StaticResource DangerButton}"
+                    Height="34"
+                    Click="BtnDelete_Click"
+                    Visibility="Collapsed"/>
+        </Grid>
+
+        <!--
+            ТАБЛИЦА ТОВАРОВ — DataGrid
+            ═══════════════════════════════════════════════════════════════
+            ЕСЛИ НУЖНО ИЗМЕНИТЬ КОЛОНКИ (другие поля в БД):
+
+            1. Измените Header="..." — это заголовок колонки (виден пользователю)
+            2. Измените Binding="{Binding ...}" — это свойство из ProductViewModel
+               (ProductsPage.xaml.cs), которое должно совпадать с полем модели
+
+            ПРИМЕР — добавить колонку "Цвет":
+              <DataGridTextColumn Header="Цвет" Binding="{Binding Color}" Width="100"/>
+              При этом в ProductViewModel (ProductsPage.xaml.cs) добавьте:
+                public string Color => Source.Color;
+              И в AppModels.cs в классе Product добавьте:
+                public string Color { get; set; }
+              И в DatabaseHelper.cs в SELECT добавьте:
+                t.Цвет
+              И в reader добавьте:
+                Color = reader["Цвет"].ToString()
+
+            ЧТОБЫ УБРАТЬ КОЛОНКУ — просто удалите строку DataGridTextColumn
+            ═══════════════════════════════════════════════════════════════
+        -->
+        <DataGrid Grid.Row="2"
+                  x:Name="dgProducts"
+                  SelectionChanged="DgProducts_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Фото" Width="70" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding PhotoSource}"
+                                   Width="50" Height="50"
+                                   Stretch="UniformToFill"
+                                   Margin="4"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Артикул"      Binding="{Binding Article}"          Width="90"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"             Width="*"/>
+                <DataGridTextColumn Header="Категория"    Binding="{Binding CategoryName}"     Width="120"/>
+                <DataGridTextColumn Header="Цена"         Binding="{Binding PriceDisplay}"     Width="170"/>
+                <DataGridTextColumn Header="Производитель" Binding="{Binding ManufacturerName}" Width="130"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
